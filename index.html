@@ -43,13 +43,14 @@
 		
 			<!-- Footer -->
 			<footer>
-				<p>Find me on social media.</p>
-				<a href="http://www.facebook.com"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
-				<a href="http://www.instagram.com"><i class="fa fa-instagram w3-hover-opacity"></i></a>
-				<a href="http://www.snapchat.com"><i class="fa fa-snapchat w3-hover-opacity"></i></a>
-				<a href="http://www.pinterest.com"><i class="fa fa-pinterest-p w3-hover-opacity"></i></a>
-				<a href="http://www.twitter.com"><i class="fa fa-twitter w3-hover-opacity"></i></a>
-				<a href="http://www.linkedin.com"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+				<p>Created by Ciarán Brennan</p>
+				<a href="http://www.facebook.com" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+				<a href="http://www.instagram.com" target="_blank"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+				<a href="http://www.snapchat.com" target="_blank"><i class="fa fa-snapchat w3-hover-opacity"></i></a>
+				<a href="http://www.pinterest.com" target="_blank"><i class="fa fa-pinterest-p w3-hover-opacity"></i></a>
+				<a href="http://www.twitter.com" target="_blank"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+				<a href="http://www.linkedin.com" target="_blank"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+				<a href="http://www.theankletap.com" target="_blank"><i class="fa fa-wordpress w3-hover-opacity"></i></a>
 			</footer>
 			<!-- End Footer -->
 		</div>
@@ -101,20 +102,16 @@
 		
 		$(document).ready(function() {
 			$('#formCalc').submit(function(e) {
-				AssignValues();
-				if (changeObj.price < changeObj.paid) {
-					document.getElementById('id01').style.display='block';
-					$('#denom').fadeIn(3000, function() {
-						$("highlighted").fadeIn(100);
-					});
-					$('#nobill').fadeIn(5000, function() {
-						$("bill").fadeIn(300);
-					});
-					FindDenominations();
+				changeObj.validAmount = false;
+				assignValues();
+				checkValidAmount(changeObj.price, changeObj.paid);
+				if (changeObj.validAmount == true) {
+					fadeInDenominations();
+					findDenominations();
 					e.preventDefault();
-					return false;
+					return false;	
 				} else {
-					CreateAlert();
+				createAlert();
 				}
 			}); 		
 
@@ -122,7 +119,8 @@
 				partial: 0, 
 				price: 0,
 				paid: 0,
-				due: 0
+				due: 0,
+				validAmount: false
 			};
 			
 			var  calcArray = [
@@ -163,8 +161,8 @@
 				text: "Nickels: "
 			 }
 			];
-
-			function AssignValues () {
+			
+			function assignValues () {
 				changeObj.price = parseFloat($('#price').val());
 				changeObj.paid = parseFloat($('#paid').val());          
 				changeObj.due = (changeObj.paid - changeObj.price).toFixed(2);
@@ -172,13 +170,33 @@
 				changeObj.partial = changeObj.due * 100;
 			}
 			
-			function FindDenominations() {
+			function checkValidAmount(price, paid) {
+				if (price < paid) {
+					changeObj.validAmount = true;
+				} else {
+					changeObj.validAmount = false;
+					price = "";
+					paid = "";
+				}
+			}
+			
+			function fadeInDenominations() {
+				$('#id01').css( "display", "block" );
+				$('#denom').fadeIn(3000, function() {
+					$("highlighted").fadeIn(100);
+				});
+				$('#nobill').fadeIn(5000, function() {
+					$("bill").fadeIn(300);
+				});
+			}
+
+			function findDenominations() {
 				for (var i = 0; i < calcArray.length; i++) {
 				calcArray[i].resultsObj = doRemainderCalc(changeObj.partial, calcArray[i].amount);
-				createText(calcArray[i].divId, calcArray[i].text, calcArray[i].resultsObj);
+				outputDenominationText(calcArray[i].divId, calcArray[i].text, calcArray[i].resultsObj);
 				}
 				// Have to hardcode the penny line as it is just rounding the remainder left over
-				createText("#penny", "Pennys: ", Math.round(changeObj.partial));
+				outputDenominationText("#penny", "Pennys: ", Math.round(changeObj.partial));
 			}
 			
 			function doRemainderCalc(balance, devisor) {
@@ -190,11 +208,11 @@
 				return countWhole;	
 			}
 			
-			function createText(divId, amountString, total) {
+			function outputDenominationText(divId, amountString, total) {
 				$(divId).val(amountString + total);
 			}
 			
-			function CreateAlert() {
+			function createAlert() {
 				alert("You are not paying enough money and you will not recieve change. \n Please amend your paid amount!");
 				$('#paid').val("");
 				$('#price').val("");
