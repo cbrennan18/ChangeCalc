@@ -4,20 +4,26 @@
 
 	<head>
 	
-		<title>Calculate Change</title>
+		<title>Change Calculator | Ciarán Brennan</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="author" content="Ciaran Brennan">
-		
+		<meta name="description" content="A simple calculator that works out the change due from a bill and breaks it down into notes and coins.">
+		<link rel="canonical" href="https://ciaranbrennan.ie/ChangeCalc/">
+		<meta property="og:title" content="Change Calculator | Ciarán Brennan">
+		<meta property="og:description" content="A simple calculator that works out the change due from a bill and breaks it down into notes and coins.">
+		<meta property="og:url" content="https://ciaranbrennan.ie/ChangeCalc/">
+		<meta property="og:type" content="website">
+
 		<link rel="stylesheet" href="css/styles.css">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		
-		<link rel="shortcut icon" href="http://www.iconarchive.com/download/i75811/martz90/circle/calculator.ico" type="image/x-icon" />
+
+		<link rel="icon" href="https://ciaranbrennan.ie/img/favicon.ico" sizes="any">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-		
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
+
 	</head>
 	
 	
@@ -232,6 +238,29 @@
 				$('#paid').val("");
 				$('#price').val("");
 				}
+		});
+
+		// load Umami
+		function loadUmamiOnce() {
+		  if (window.umami || document.querySelector('script[data-website-id="b8992f59-bcb2-4f10-a02a-2ffa23f482e0"]')) return;
+
+		  const PROD_HOSTS = ['ciaranbrennan.ie', 'www.ciaranbrennan.ie'];
+
+		  if (!PROD_HOSTS.includes(location.hostname)) {
+		    // Don't load Umami on localhost, preview, or any non-prod host
+		    return;
+		  }
+
+		  const s = document.createElement('script');
+		  s.defer = true;
+		  s.src = 'https://analytics.ciaranbrennan.ie/script.js';
+		  s.setAttribute('data-website-id', 'b8992f59-bcb2-4f10-a02a-2ffa23f482e0');
+		  s.setAttribute('data-do-not-track', 'true'); // respect browser DNT
+		  document.head.appendChild(s);
+		}
+
+		window.addEventListener('load', () => {
+		  setTimeout(loadUmamiOnce, 0);
 		});
 		</script>
 
