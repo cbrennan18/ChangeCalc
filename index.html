@@ -23,6 +23,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script defer src="https://analytics.ciaranbrennan.ie/script.js" data-website-id="b8992f59-bcb2-4f10-a02a-2ffa23f482e0" data-domains="ciaranbrennan.ie,www.ciaranbrennan.ie" data-tag="changecalc" data-do-not-track="true"></script>
 
 	</head>
 	
@@ -35,11 +36,11 @@
 			 End Header -->
 		<ul>
 		  <li><a href="#home">Home</a></li>
-		  <li><a href="https://cbrennan18.github.io/index.html">My Resume</a></li>
+		  <li><a href="https://ciaranbrennan.ie/">My Resume</a></li>
 		  <li class="dropdown">
 			<a href="javascript:void(0)" class="dropbtn">Projects</a>
 			<div class="dropdown-content">
-			  <a href="https://cbrennan18.github.io/ChangeCalc">ChangeCalc</a>
+			  <a href="https://ciaranbrennan.ie/">ChangeCalc</a>
 			  <a href="#">Link 2</a>
 			  <a href="#">Link 3</a>
 			</div>
@@ -238,29 +239,6 @@
 				$('#paid').val("");
 				$('#price').val("");
 				}
-		});
-
-		// load Umami
-		function loadUmamiOnce() {
-		  if (window.umami || document.querySelector('script[data-website-id="b8992f59-bcb2-4f10-a02a-2ffa23f482e0"]')) return;
-
-		  const PROD_HOSTS = ['ciaranbrennan.ie', 'www.ciaranbrennan.ie'];
-
-		  if (!PROD_HOSTS.includes(location.hostname)) {
-		    // Don't load Umami on localhost, preview, or any non-prod host
-		    return;
-		  }
-
-		  const s = document.createElement('script');
-		  s.defer = true;
-		  s.src = 'https://analytics.ciaranbrennan.ie/script.js';
-		  s.setAttribute('data-website-id', 'b8992f59-bcb2-4f10-a02a-2ffa23f482e0');
-		  s.setAttribute('data-do-not-track', 'true'); // respect browser DNT
-		  document.head.appendChild(s);
-		}
-
-		window.addEventListener('load', () => {
-		  setTimeout(loadUmamiOnce, 0);
 		});
 		</script>
 
